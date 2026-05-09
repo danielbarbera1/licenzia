@@ -2,7 +2,7 @@ import { createClient } from '@/utils/supabase/server'
 import { cookies } from 'next/headers'
 import { NextResponse } from 'next/server'
 
-export async function GET(request: Request) {
+export async function GET(request) {
   const requestUrl = new URL(request.url)
   const code = requestUrl.searchParams.get('code')
   const next = requestUrl.searchParams.get('next') ?? '/'
@@ -19,4 +19,5 @@ export async function GET(request: Request) {
 
   // Si hay error o no hay código, redirigir a una página de error o al home
   return NextResponse.redirect(new URL('/auth/auth-error', requestUrl.origin))
-}
+}
+

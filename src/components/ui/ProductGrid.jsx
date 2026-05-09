@@ -83,12 +83,17 @@ export function ProductGrid({ productos }) {
                 </p>
 
                 <div className="space-y-4">
+                  <Link href="/carrito">
                   <Button className="w-full h-14 rounded-full text-base font-medium transition-all hover:scale-[1.02] active:scale-[0.98]">
                     Añadir al Carrito
                   </Button>
+                  </Link>
+                  
+                  <Link href="/pago">
                   <Button variant="outline" className="w-full h-14 rounded-full text-base font-medium">
                     Comprar Ahora
                   </Button>
+                  </Link>
                 </div>
               </div>
             </div>

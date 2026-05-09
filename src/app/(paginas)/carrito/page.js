@@ -177,10 +177,12 @@ export default function CarritoPage() {
                   <p className="text-xs text-gray-500 mt-1">Los impuestos se calcularán en el checkout.</p>
                 </div>
 
-                <Button className="w-full py-6 text-base font-medium rounded-lg group">
-                  Proceder al Pago
-                  <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-                </Button>
+                <Link href="/pago">
+                  <Button className="w-full py-6 text-base font-medium rounded-lg group">
+                    Proceder al Pago
+                    <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                  </Button>
+                </Link>
 
                 <div className="mt-6 text-center">
                   <Link href="/productos" className="text-sm font-medium text-gray-500 hover:text-black underline-offset-4 hover:underline transition-colors">

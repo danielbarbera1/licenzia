@@ -39,11 +39,11 @@ export default async function Home() {
       <section className="relative h-[85vh] flex flex-col items-center justify-center text-center px-4 overflow-hidden">
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
-          <img 
+          {/* <img 
             src="https://ldcmyqjtlujddovytdkb.supabase.co/storage/v1/object/public/imagenes%20variadas/bannerHero.png"
             alt="Background"
             className="w-full h-full object-cover object-center"
-          />
+          /> */}
           {/* Subtle overlay to ensure text readability */}
           <div className="absolute inset-0 bg-white/20"></div>
         </div>
