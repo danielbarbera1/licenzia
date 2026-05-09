@@ -4,28 +4,13 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { ShoppingBag, MapPin, Phone, Mail, Clock } from 'lucide-react'
+import Navbar from "@/components/navbar"
+import Footer from "@/components/footer"
 
 export default function ContactoPage() {
   return (
     <div className="min-h-screen bg-[#fafafa] text-[#111]">
-      {/* Navigation */}
-      <nav className="sticky top-0 z-50 flex items-center justify-between px-8 py-5 bg-[#fafafa]/80 backdrop-blur-md border-b border-black/5">
-        <div className="flex items-center gap-8">
-          <Link href="/" className="text-xl font-bold tracking-tighter uppercase">
-            Licenzia
-          </Link>
-          <div className="hidden md:flex items-center gap-6 text-sm font-medium text-gray-500">
-            <Link href="/productos" className="hover:text-black transition-colors">TIENDA</Link>
-            <Link href="/nosotros" className="hover:text-black transition-colors">Sobre Nosotros</Link>
-            <Link href="/contacto" className="text-black font-semibold transition-colors">Contacto</Link>
-          </div>
-        </div>
-        <div className="flex items-center gap-4">
-          <Button variant="ghost" size="icon" className="rounded-full">
-            <ShoppingBag className="w-5 h-5" />
-          </Button>
-        </div>
-      </nav>
+      <Navbar />
 
       {/* Header */}
       <div className="pt-24 pb-12 px-8 text-center max-w-3xl mx-auto">
@@ -36,7 +21,7 @@ export default function ContactoPage() {
       {/* Main Content */}
       <main className="max-w-[1200px] mx-auto px-8 pb-24">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          
+
           {/* Contact Form */}
           <div className="bg-white p-8 rounded-2xl border border-black/5 shadow-sm">
             <h2 className="text-2xl font-semibold tracking-tight mb-6">Envíanos un mensaje</h2>
@@ -44,18 +29,18 @@ export default function ContactoPage() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <label htmlFor="nombre" className="text-sm font-medium text-gray-700">Nombre</label>
-                  <input 
-                    type="text" 
-                    id="nombre" 
+                  <input
+                    type="text"
+                    id="nombre"
                     className="w-full px-4 py-3 bg-[#fafafa] border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-black/5 focus:border-black transition-colors"
                     placeholder="Tu nombre"
                   />
                 </div>
                 <div className="space-y-2">
                   <label htmlFor="email" className="text-sm font-medium text-gray-700">Correo Electrónico</label>
-                  <input 
-                    type="email" 
-                    id="email" 
+                  <input
+                    type="email"
+                    id="email"
                     className="w-full px-4 py-3 bg-[#fafafa] border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-black/5 focus:border-black transition-colors"
                     placeholder="tu@email.com"
                   />
@@ -63,17 +48,17 @@ export default function ContactoPage() {
               </div>
               <div className="space-y-2">
                 <label htmlFor="asunto" className="text-sm font-medium text-gray-700">Asunto</label>
-                <input 
-                  type="text" 
-                  id="asunto" 
+                <input
+                  type="text"
+                  id="asunto"
                   className="w-full px-4 py-3 bg-[#fafafa] border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-black/5 focus:border-black transition-colors"
                   placeholder="¿En qué podemos ayudarte?"
                 />
               </div>
               <div className="space-y-2">
                 <label htmlFor="mensaje" className="text-sm font-medium text-gray-700">Mensaje</label>
-                <textarea 
-                  id="mensaje" 
+                <textarea
+                  id="mensaje"
                   rows="5"
                   className="w-full px-4 py-3 bg-[#fafafa] border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-black/5 focus:border-black transition-colors resize-none"
                   placeholder="Escribe tu mensaje aquí..."
@@ -87,7 +72,7 @@ export default function ContactoPage() {
 
           {/* Contact Info & Map */}
           <div className="space-y-8 flex flex-col">
-            
+
             {/* Info Cards */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               <Card className="border border-black/5 shadow-sm bg-white">
@@ -100,7 +85,7 @@ export default function ContactoPage() {
                   <a href="mailto:hola@licenzia.com" className="text-sm font-medium mt-3 hover:underline">hola@licenzia.com</a>
                 </CardContent>
               </Card>
-              
+
               <Card className="border border-black/5 shadow-sm bg-white">
                 <CardContent className="p-6 flex flex-col items-start">
                   <div className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center mb-4">
@@ -141,13 +126,13 @@ export default function ContactoPage() {
 
             {/* Google Map Embedded */}
             <div className="flex-1 min-h-[300px] w-full bg-gray-100 rounded-2xl overflow-hidden border border-black/5 shadow-sm">
-              <iframe 
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3037.6698993202496!2d-3.7061763846042454!3d40.41620956359567!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xdb4ab4cd68e7b9%3A0x62952db580b08041!2sPuerta%20del%20Sol!5e0!3m2!1ses!2ses!4v1684345239247!5m2!1ses!2ses" 
-                width="100%" 
-                height="100%" 
-                style={{ border: 0 }} 
-                allowFullScreen="" 
-                loading="lazy" 
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3037.6698993202496!2d-3.7061763846042454!3d40.41620956359567!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xdb4ab4cd68e7b9%3A0x62952db580b08041!2sPuerta%20del%20Sol!5e0!3m2!1ses!2ses!4v1684345239247!5m2!1ses!2ses"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen=""
+                loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
                 title="Google Maps Location"
               ></iframe>
@@ -156,18 +141,7 @@ export default function ContactoPage() {
           </div>
         </div>
       </main>
-
-      {/* Footer */}
-      <footer className="border-t border-black/5 py-12 px-8 text-sm mt-auto">
-        <div className="max-w-[1400px] mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
-          <p className="text-gray-500">© 2026 Licenzia. Todos los derechos reservados.</p>
-          <div className="flex gap-6 font-medium">
-            <Link href="#" className="hover:text-black text-gray-500 transition-colors">Instagram</Link>
-            <Link href="#" className="hover:text-black text-gray-500 transition-colors">Twitter</Link>
-            <Link href="#" className="hover:text-black text-gray-500 transition-colors">Términos</Link>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   )
 }

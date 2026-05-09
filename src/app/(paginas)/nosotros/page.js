@@ -1,28 +1,13 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { ShoppingBag } from 'lucide-react'
+import Navbar from "@/components/navbar"
+import Footer from "@/components/footer"
 
 export default function NosotrosPage() {
   return (
     <div className="min-h-screen bg-[#fafafa] text-[#111]">
-      {/* Navigation */}
-      <nav className="sticky top-0 z-50 flex items-center justify-between px-8 py-5 bg-[#fafafa]/80 backdrop-blur-md border-b border-black/5">
-        <div className="flex items-center gap-8">
-          <Link href="/" className="text-xl font-bold tracking-tighter uppercase">
-            Licenzia
-          </Link>
-          <div className="hidden md:flex items-center gap-6 text-sm font-medium text-gray-500">
-            <Link href="/productos" className="hover:text-black transition-colors">TIENDA</Link>
-            <Link href="/nosotros" className="text-black font-semibold transition-colors">Sobre Nosotros</Link>
-            <Link href="/blog" className="hover:text-black transition-colors">Blog</Link>
-          </div>
-        </div>
-        <div className="flex items-center gap-4">
-          <Button variant="ghost" size="icon" className="rounded-full">
-            <ShoppingBag className="w-5 h-5" />
-          </Button>
-        </div>
-      </nav>
+      <Navbar />
 
       {/* Hero Section */}
       <section className="relative pt-32 pb-20 px-8 text-center max-w-4xl mx-auto">
@@ -80,18 +65,8 @@ export default function NosotrosPage() {
           </Button>
         </Link>
       </section>
+      <Footer />
 
-      {/* Footer */}
-      <footer className="border-t border-black/5 py-12 px-8 text-sm">
-        <div className="max-w-[1400px] mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
-          <p className="text-gray-500">© 2026 Licenzia. Todos los derechos reservados.</p>
-          <div className="flex gap-6 font-medium">
-            <Link href="#" className="hover:text-black text-gray-500 transition-colors">Instagram</Link>
-            <Link href="#" className="hover:text-black text-gray-500 transition-colors">Twitter</Link>
-            <Link href="#" className="hover:text-black text-gray-500 transition-colors">Términos</Link>
-          </div>
-        </div>
-      </footer>
     </div>
   )
 }
