@@ -51,7 +51,10 @@ function LoginContent() {
                 if (error) throw error;
                 
                 setMessage({ type: 'success', text: '¡Sesión iniciada con éxito! Redirigiendo...' });
-                setTimeout(() => router.push('/'), 1500);
+                setTimeout(() => {
+                    router.refresh();
+                    router.push('/');
+                }, 1500);
             } else {
                 // Lógica de Registro
                 const { error } = await supabase.auth.signUp({

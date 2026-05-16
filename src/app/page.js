@@ -50,9 +50,9 @@ export default async function Home() {
 
         {/* Hero Content */}
         <div className="relative z-10 flex flex-col items-center">
-          <span className="text-sm font-medium tracking-widest uppercase mb-4 text-gray-500">New Collection</span>
+          <span className="text-sm font-medium tracking-widest uppercase mb-4 text-gray-500">Nueva Colección</span>
           <h1 className="text-5xl md:text-7xl font-semibold tracking-tighter max-w-3xl mb-8 leading-[1.1]">
-            Ver Producto <br /> minimalista moderno.
+            Diseño <br /> minimalista moderno.
           </h1>
           <p className="text-lg text-gray-600 max-w-md mb-10">
             Mejora tu día a día con nuestra nueva colección de artículos esenciales elaborados con esmero.

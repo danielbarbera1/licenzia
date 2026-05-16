@@ -17,9 +17,12 @@ import {
 } from 'lucide-react'
 import Navbar from "@/components/navbar"
 import Footer from "@/components/footer"
+import { useCart } from "@/context/CartContext"
 
 export default function PagoPage() {
     const router = useRouter();
+    const { items, subtotal, clearCart, itemCount } = useCart();
+    
     const [step, setStep] = useState(1); // 1: Envío, 2: Pago, 3: Confirmación
     const [loading, setLoading] = useState(false);
     const [isCompleted, setIsCompleted] = useState(false);
@@ -55,7 +58,12 @@ export default function PagoPage() {
         
         setLoading(false);
         setIsCompleted(true);
+        clearCart(); // Vaciamos el carrito tras una compra exitosa
     };
+
+    const shipping = subtotal > 0 ? 10.00 : 0;
+    const iva = subtotal * 0.21;
+    const total = subtotal + shipping + iva;
 
     if (isCompleted) {
         return (
@@ -303,7 +311,7 @@ export default function PagoPage() {
                                             <Button 
                                                 type="submit" 
                                                 className="h-14 rounded-2xl flex-[2] text-base font-semibold shadow-lg shadow-black/5"
-                                                disabled={loading}
+                                                disabled={loading || items.length === 0}
                                             >
                                                 {loading ? (
                                                     <>
@@ -334,49 +342,45 @@ export default function PagoPage() {
                                 Tu Pedido
                             </h3>
                             
-                            {/* Summary Items (Mocked for now) */}
+                            {/* Summary Items */}
                             <div className="space-y-4 mb-8">
-                                <div className="flex gap-4">
-                                    <div className="w-14 h-14 bg-gray-100 rounded-lg overflow-hidden shrink-0">
-                                        <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?q=80&w=200" className="w-full h-full object-cover" />
-                                    </div>
-                                    <div className="flex-1 text-sm">
-                                        <p className="font-medium">Minimalist T-Shirt</p>
-                                        <p className="text-gray-400">Cant: 2</p>
-                                    </div>
-                                    <p className="text-sm font-semibold">$70.00</p>
-                                </div>
-                                <div className="flex gap-4">
-                                    <div className="w-14 h-14 bg-gray-100 rounded-lg overflow-hidden shrink-0">
-                                        <img src="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?q=80&w=200" className="w-full h-full object-cover" />
-                                    </div>
-                                    <div className="flex-1 text-sm">
-                                        <p className="font-medium">Leather Backpack</p>
-                                        <p className="text-gray-400">Cant: 1</p>
-                                    </div>
-                                    <p className="text-sm font-semibold">$150.00</p>
-                                </div>
+                                {items.length === 0 ? (
+                                    <p className="text-sm text-gray-500">Tu carrito está vacío.</p>
+                                ) : (
+                                    items.map(item => (
+                                        <div key={item.id} className="flex gap-4">
+                                            <div className="w-14 h-14 bg-gray-100 rounded-lg overflow-hidden shrink-0">
+                                                <img src={item.imagen_url} alt={item.nombre} className="w-full h-full object-cover" />
+                                            </div>
+                                            <div className="flex-1 text-sm">
+                                                <p className="font-medium line-clamp-1">{item.nombre}</p>
+                                                <p className="text-gray-400">Cant: {item.quantity}</p>
+                                            </div>
+                                            <p className="text-sm font-semibold">${Number(item.precio * item.quantity).toFixed(2)}</p>
+                                        </div>
+                                    ))
+                                )}
                             </div>
                             
                             <div className="space-y-4 text-sm pt-6 border-t border-gray-100">
                                 <div className="flex justify-between text-gray-500">
-                                    <span>Subtotal</span>
-                                    <span className="font-medium text-black">$220.00</span>
+                                    <span>Subtotal ({itemCount} {itemCount === 1 ? 'artículo' : 'artículos'})</span>
+                                    <span className="font-medium text-black">${subtotal.toFixed(2)}</span>
                                 </div>
                                 <div className="flex justify-between text-gray-500">
                                     <span>Envío</span>
-                                    <span className="font-medium text-black">$10.00</span>
+                                    <span className="font-medium text-black">${shipping.toFixed(2)}</span>
                                 </div>
                                 <div className="flex justify-between text-gray-500">
                                     <span>IVA (21%)</span>
-                                    <span className="font-medium text-black">$46.20</span>
+                                    <span className="font-medium text-black">${iva.toFixed(2)}</span>
                                 </div>
                             </div>
                             
                             <div className="mt-6 pt-6 border-t border-black/5">
                                 <div className="flex justify-between items-center">
                                     <span className="font-semibold text-gray-600">Total a pagar</span>
-                                    <span className="font-bold text-2xl tracking-tighter">$276.20</span>
+                                    <span className="font-bold text-2xl tracking-tighter">${total.toFixed(2)}</span>
                                 </div>
                             </div>
                         </div>

@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Link from 'next/link'
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { 
@@ -9,10 +10,37 @@ import {
   DialogHeader, 
   DialogTitle 
 } from "@/components/ui/dialog"
-import { ShoppingBag, X } from 'lucide-react'
+import { ShoppingBag, Check, Minus, Plus } from 'lucide-react'
+import { useCart } from "@/context/CartContext"
 
 export function ProductGrid({ productos }) {
   const [selectedProduct, setSelectedProduct] = useState(null)
+  const [addedToCart, setAddedToCart] = useState(null)
+  const [modalQuantity, setModalQuantity] = useState(1)
+  const { addItem } = useCart()
+
+  const handleAddToCart = (product, e) => {
+    if (e) e.stopPropagation()
+    addItem(product, 1)
+    setAddedToCart(product.id)
+    setTimeout(() => setAddedToCart(null), 2000)
+  }
+
+  const handleAddToCartFromModal = (product) => {
+    addItem(product, modalQuantity)
+    setAddedToCart(product.id)
+    setModalQuantity(1)
+    setTimeout(() => {
+      setAddedToCart(null)
+      setSelectedProduct(null)
+    }, 1200)
+  }
+
+  const handleOpenModal = (product) => {
+    setSelectedProduct(product)
+    setModalQuantity(1)
+    setAddedToCart(null)
+  }
 
   return (
     <>
@@ -22,7 +50,7 @@ export function ProductGrid({ productos }) {
           <div 
             key={producto.id} 
             className="group cursor-pointer"
-            onClick={() => setSelectedProduct(producto)}
+            onClick={() => handleOpenModal(producto)}
           >
             <Card className="border-0 shadow-none bg-transparent rounded-none">
               <CardContent className="p-0">
@@ -32,17 +60,33 @@ export function ProductGrid({ productos }) {
                     alt={producto.nombre} 
                     className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
                   />
-                  {/* Overlay rápido al hacer hover */}
-                  <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                    <span className="bg-white text-black px-4 py-2 rounded-full text-xs font-bold tracking-widest uppercase shadow-xl transform translate-y-4 group-hover:translate-y-0 transition-transform">
+                  {/* Hover overlay with actions */}
+                  <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-end pb-4 gap-2">
+                    <span className="bg-white text-black px-4 py-2 rounded-full text-xs font-bold tracking-widest uppercase shadow-xl transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
                       Ver Detalle
                     </span>
                   </div>
+
+                  {/* Quick Add to Cart button */}
+                  <button
+                    onClick={(e) => handleAddToCart(producto, e)}
+                    className={`absolute top-3 right-3 w-10 h-10 rounded-full flex items-center justify-center shadow-lg transition-all duration-300 z-10 ${
+                      addedToCart === producto.id
+                        ? 'bg-green-500 text-white scale-110'
+                        : 'bg-white text-black opacity-0 group-hover:opacity-100 hover:bg-black hover:text-white translate-y-2 group-hover:translate-y-0'
+                    }`}
+                  >
+                    {addedToCart === producto.id ? (
+                      <Check className="w-4 h-4" />
+                    ) : (
+                      <ShoppingBag className="w-4 h-4" />
+                    )}
+                  </button>
                 </div>
                 <div className="flex justify-between items-start">
                   <div>
                     <h3 className="font-medium text-sm">{producto.nombre}</h3>
-                    <p className="text-sm text-gray-500 mt-1">{producto.price}</p>
+                    <p className="text-sm text-gray-500 mt-1">${producto.precio}</p>
                   </div>
                 </div>
               </CardContent>
@@ -82,17 +126,53 @@ export function ProductGrid({ productos }) {
                   {selectedProduct.descripcion}
                 </p>
 
+                {/* Quantity Selector */}
+                <div className="flex items-center gap-4 mb-6">
+                  <span className="text-sm font-medium text-gray-600">Cantidad:</span>
+                  <div className="flex items-center border border-gray-200 rounded-full bg-gray-50">
+                    <button
+                      onClick={() => setModalQuantity(Math.max(1, modalQuantity - 1))}
+                      className="w-10 h-10 flex items-center justify-center text-gray-500 hover:text-black transition-colors disabled:opacity-50"
+                      disabled={modalQuantity <= 1}
+                    >
+                      <Minus className="w-4 h-4" />
+                    </button>
+                    <span className="w-10 text-center text-sm font-medium">{modalQuantity}</span>
+                    <button
+                      onClick={() => setModalQuantity(modalQuantity + 1)}
+                      className="w-10 h-10 flex items-center justify-center text-gray-500 hover:text-black transition-colors"
+                    >
+                      <Plus className="w-4 h-4" />
+                    </button>
+                  </div>
+                </div>
+
                 <div className="space-y-4">
-                  <Link href="/carrito">
-                  <Button className="w-full h-14 rounded-full text-base font-medium transition-all hover:scale-[1.02] active:scale-[0.98]">
-                    Añadir al Carrito
+                  <Button 
+                    onClick={() => handleAddToCartFromModal(selectedProduct)}
+                    className={`w-full h-14 rounded-full text-base font-medium transition-all hover:scale-[1.02] active:scale-[0.98] ${
+                      addedToCart === selectedProduct.id
+                        ? 'bg-green-500 hover:bg-green-600'
+                        : ''
+                    }`}
+                  >
+                    {addedToCart === selectedProduct.id ? (
+                      <>
+                        <Check className="w-5 h-5 mr-2" />
+                        ¡Añadido al Carrito!
+                      </>
+                    ) : (
+                      <>
+                        <ShoppingBag className="w-5 h-5 mr-2" />
+                        Añadir al Carrito
+                      </>
+                    )}
                   </Button>
-                  </Link>
                   
-                  <Link href="/pago">
-                  <Button variant="outline" className="w-full h-14 rounded-full text-base font-medium">
-                    Comprar Ahora
-                  </Button>
+                  <Link href="/carrito">
+                    <Button variant="outline" className="w-full h-14 rounded-full text-base font-medium">
+                      Ver Carrito
+                    </Button>
                   </Link>
                 </div>
               </div>
