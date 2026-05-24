@@ -3,7 +3,7 @@
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
-import { ShoppingBag, LogIn, UserPlus, LogOut, User, ChevronDown } from 'lucide-react'
+import { ShoppingBag, LogIn, UserPlus, LogOut, User, ChevronDown, LayoutDashboard, Settings, Package } from 'lucide-react'
 import { useAuth } from "@/context/AuthContext"
 import { useCart } from "@/context/CartContext"
 import { useState, useRef, useEffect } from "react"
@@ -99,6 +99,34 @@ export default function Navbar() {
                     </span>
                   )}
                 </Link>
+
+                <Link
+                  href="/pedidos"
+                  onClick={() => setShowMenu(false)}
+                  className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-600 hover:text-black hover:bg-gray-50 transition-colors"
+                >
+                  <Package className="w-4 h-4" />
+                  Mis Pedidos
+                </Link>
+
+                <Link
+                  href="/admin"
+                  onClick={() => setShowMenu(false)}
+                  className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-600 hover:text-black hover:bg-gray-50 transition-colors"
+                >
+                  <LayoutDashboard className="w-4 h-4" />
+                  Panel de Control
+                </Link>
+
+                <Link
+                  href="/configuracion"
+                  onClick={() => setShowMenu(false)}
+                  className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-600 hover:text-black hover:bg-gray-50 transition-colors"
+                >
+                  <Settings className="w-4 h-4" />
+                  Configuración de cuenta
+                </Link>
+
                 <button
                   onClick={handleSignOut}
                   className="flex items-center gap-3 px-4 py-2.5 text-sm text-red-500 hover:text-red-600 hover:bg-red-50 transition-colors w-full text-left"

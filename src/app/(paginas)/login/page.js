@@ -9,6 +9,7 @@ import { Mail, Lock, User, ArrowRight, Loader2 } from 'lucide-react'
 import Navbar from "@/components/navbar"
 import Footer from "@/components/footer"
 import { createClient } from "@/utils/supabase/client"
+import { useAuth } from "@/context/AuthContext"
 
 function LoginContent() {
     const searchParams = useSearchParams();

@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { createClient } from "@/utils/supabase/client";
 import { 
   Plus, 
@@ -28,6 +29,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 
 export default function AdminProductosPage() {
+  const router = useRouter();
   const supabase = createClient();
   const [productos, setProductos] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -66,8 +68,8 @@ export default function AdminProductosPage() {
     try {
       const [prodRes, catRes, typeRes] = await Promise.all([
         supabase.from("productos").select("*, product_type(id, nombre), categorias(id, nombre)").order("creado", { ascending: false }),
-        supabase.from("categorias").select("* , productos(id, nombre), product_type(id, nombre) "),
-        supabase.from("product_type").select("*, productos(id, nombre), categorias(id, nombre)")
+        supabase.from("categorias").select("*"),
+        supabase.from("product_type").select("*")
       ]);
 
       if (prodRes.error) throw prodRes.error;
@@ -245,10 +247,14 @@ export default function AdminProductosPage() {
             </div>
             <div className="flex gap-2">
               <Button 
-                variant={showFilters || hasActiveFilters ? "default" : "outline"}
+                variant="outline"
                 onClick={() => setShowFilters(!showFilters)}
                 className={`transition-all ${
-                  hasActiveFilters ? "bg-primary/10 text-primary hover:bg-primary/20 border-primary/20" : "text-slate-600 dark:text-slate-400"
+                  hasActiveFilters 
+                    ? "bg-primary/10 text-primary hover:bg-primary/20 border-primary/20" 
+                    : showFilters 
+                      ? "bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-slate-100 border-slate-200 dark:border-slate-700" 
+                      : "text-slate-600 dark:text-slate-400"
                 }`}
               >
                 <Filter className="h-4 w-4 mr-2" />
@@ -277,7 +283,7 @@ export default function AdminProductosPage() {
                 <select
                   value={activeFilters.category}
                   onChange={(e) => setActiveFilters({...activeFilters, category: e.target.value})}
-                  className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border-none rounded-lg text-xs focus:ring-2 focus:ring-primary/20 outline-none appearance-none cursor-pointer"
+                  className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-xs focus:ring-2 focus:ring-primary/20 outline-none cursor-pointer"
                 >
                   <option value="all">Todas las categorías</option>
                   {categories.map(c => (
@@ -291,7 +297,7 @@ export default function AdminProductosPage() {
                 <select
                   value={activeFilters.type}
                   onChange={(e) => setActiveFilters({...activeFilters, type: e.target.value})}
-                  className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border-none rounded-lg text-xs focus:ring-2 focus:ring-primary/20 outline-none appearance-none cursor-pointer"
+                  className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-xs focus:ring-2 focus:ring-primary/20 outline-none cursor-pointer"
                 >
                   <option value="all">Todos los tipos</option>
                   {productTypes.map(t => (
@@ -305,7 +311,7 @@ export default function AdminProductosPage() {
                 <select
                   value={activeFilters.stockStatus}
                   onChange={(e) => setActiveFilters({...activeFilters, stockStatus: e.target.value})}
-                  className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border-none rounded-lg text-xs focus:ring-2 focus:ring-primary/20 outline-none appearance-none cursor-pointer"
+                  className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-xs focus:ring-2 focus:ring-primary/20 outline-none cursor-pointer"
                 >
                   <option value="all">Todos los niveles</option>
                   <option value="in-stock">En Stock (&gt;20)</option>
@@ -395,7 +401,7 @@ export default function AdminProductosPage() {
                         <Button 
                           variant="ghost" 
                           size="icon" 
-                          onClick={() => handleOpenModal(p)}
+                          onClick={() => router.push(`/admin/productos/editar?id=${p.id}`)}
                           className="h-8 w-8 text-slate-400 hover:text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/20"
                         >
                           <Edit className="h-4 w-4" />
@@ -472,7 +478,7 @@ export default function AdminProductosPage() {
                 <select
                   value={formData.product_type}
                   onChange={(e) => setFormData({...formData, product_type: e.target.value})}
-                  className="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-800 border-none rounded-xl text-sm focus:ring-2 focus:ring-primary/20 outline-none appearance-none"
+                  className="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-sm focus:ring-2 focus:ring-primary/20 outline-none"
                 >
                   <option value="">Seleccionar...</option>
                   {productTypes.map(t => (
@@ -485,7 +491,7 @@ export default function AdminProductosPage() {
                 <select
                   value={formData.categorias}
                   onChange={(e) => setFormData({...formData, categorias: e.target.value})}
-                  className="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-800 border-none rounded-xl text-sm focus:ring-2 focus:ring-primary/20 outline-none appearance-none"
+                  className="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-sm focus:ring-2 focus:ring-primary/20 outline-none"
                 >
                   <option value="">Seleccionar...</option>
                   {categories.map(c => (

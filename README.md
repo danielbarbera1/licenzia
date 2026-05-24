@@ -5,11 +5,14 @@ revisar la documentacion de autenticacion
 https://supabase.com/docs/guides/auth/passwords
 
 tarea 
-al hacer click en el btn de cada producto se me deve agregar al carrito osea al icono de carrito deben aparecer 1 y asi sucesivamente 
 
-agregar el panel de admin para poder agregar y quitar productos de la tienda 
+agregarle roles de usuario
 
-cuando entre al carrito debe poder cambiar la cantidad de productos y el precio deve cambiar 
+admin controla toda 
+
+usuario que puede ver su pedidos , hacer pedido , compras ect 
 
 
- (arreglar el boton de filtros de productos )
+la pages de pago esta en simulando la transaccion , hay que ponerla en la base de datos 
+
+

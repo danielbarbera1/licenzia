@@ -7,6 +7,7 @@ import {
   LayoutDashboard,
   Package,
   Users,
+  Contact,
   ShoppingCart,
   Settings,
   LogOut,
@@ -22,7 +23,8 @@ const menuItems = [
   { icon: LayoutDashboard, label: "Dashboard", href: "/admin/dashboard" },
   { icon: Package, label: "Productos", href: "/admin/productos" },
   { icon: ShoppingCart, label: "Pedidos", href: "/admin/pedidos" },
-  { icon: Users, label: "Clientes", href: "/admin/clientes" },
+  { icon: Contact, label: "Clientes", href: "/admin/clientes" },
+  { icon: Users, label: "Usuarios", href: "/admin/usuarios" },
   { icon: Settings, label: "Ajustes", href: "/admin/settings" },
 ];
 
