@@ -2,14 +2,14 @@
 
 import { useState, useEffect } from 'react';
 import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { ShoppingBag, Check, Minus, Plus } from 'lucide-react';
 import { useCart } from "@/context/CartContext";
-import { supabase } from '@/lib/supabase';
+import { createClient } from "@/utils/supabase/client";
 
 export default function UsuarioPage() {
+  const supabase = createClient();
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [addedToCart, setAddedToCart] = useState(null);
   const [modalQuantity, setModalQuantity] = useState(1);
