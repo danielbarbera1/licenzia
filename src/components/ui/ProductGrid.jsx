@@ -4,11 +4,11 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { 
-  Dialog, 
-  DialogContent, 
-  DialogHeader, 
-  DialogTitle 
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle
 } from "@/components/ui/dialog"
 import { ShoppingBag, Check, Minus, Plus } from 'lucide-react'
 import { useCart } from "@/context/CartContext"
@@ -47,17 +47,17 @@ export function ProductGrid({ productos }) {
       {/* Grid de Productos */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
         {productos.map((producto) => (
-          <div 
-            key={producto.id} 
+          <div
+            key={producto.id}
             className="group cursor-pointer"
             onClick={() => handleOpenModal(producto)}
           >
             <Card className="border-0 shadow-none bg-transparent rounded-none">
               <CardContent className="p-0">
                 <div className="aspect-[4/5] overflow-hidden bg-gray-100 mb-4 rounded-lg relative">
-                  <img 
-                    src={producto.imagen_url} 
-                    alt={producto.nombre} 
+                  <img
+                    src={producto.imagen_url}
+                    alt={producto.nombre}
                     className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
                   />
                   {/* Hover overlay with actions */}
@@ -70,11 +70,10 @@ export function ProductGrid({ productos }) {
                   {/* Quick Add to Cart button */}
                   <button
                     onClick={(e) => handleAddToCart(producto, e)}
-                    className={`absolute top-3 right-3 w-10 h-10 rounded-full flex items-center justify-center shadow-lg transition-all duration-300 z-10 ${
-                      addedToCart === producto.id
-                        ? 'bg-green-500 text-white scale-110'
-                        : 'bg-white text-black opacity-0 group-hover:opacity-100 hover:bg-black hover:text-white translate-y-2 group-hover:translate-y-0'
-                    }`}
+                    className={`absolute top-3 right-3 w-10 h-10 rounded-full flex items-center justify-center shadow-lg transition-all duration-300 z-10 ${addedToCart === producto.id
+                      ? 'bg-green-500 text-white scale-110'
+                      : 'bg-white text-black opacity-0 group-hover:opacity-100 hover:bg-black hover:text-white translate-y-2 group-hover:translate-y-0'
+                      }`}
                   >
                     {addedToCart === producto.id ? (
                       <Check className="w-4 h-4" />
@@ -97,13 +96,13 @@ export function ProductGrid({ productos }) {
 
       {/* Modal de Producto (Premium Design) */}
       <Dialog open={!!selectedProduct} onOpenChange={() => setSelectedProduct(null)}>
-        <DialogContent className="max-w-4xl p-0 overflow-hidden bg-white/80 backdrop-blur-xl border-white/20 shadow-2xl">
+        <DialogContent className="w-2xl max-w-[90vw] md:max-w-7xl h-[90vh] md:h-auto p-0 overflow-hidden bg-white/80 backdrop-blur-xl border-white/20 shadow-2xl rounded-2xl">
           {selectedProduct && (
-            <div className="flex flex-col md:flex-row h-full">
+            <div className="flex flex-col md:flex-row h-full rounded-2xl">
               {/* Lado Izquierdo: Imagen */}
               <div className="w-full md:w-1/2 bg-gray-50">
-                <img 
-                  src={selectedProduct.imagen_url} 
+                <img
+                  src={selectedProduct.imagen_url}
                   alt={selectedProduct.nombre}
                   className="w-full h-full object-cover aspect-square md:aspect-auto"
                 />
@@ -117,11 +116,11 @@ export function ProductGrid({ productos }) {
                     {selectedProduct.nombre}
                   </DialogTitle>
                 </DialogHeader>
-                
+
                 <p className="text-2xl font-light text-gray-900 mb-6">
                   ${selectedProduct.precio} USD
                 </p>
-                
+
                 <p className="text-gray-500 text-sm leading-relaxed mb-8">
                   {selectedProduct.descripcion}
                 </p>
@@ -148,13 +147,12 @@ export function ProductGrid({ productos }) {
                 </div>
 
                 <div className="space-y-4">
-                  <Button 
+                  <Button
                     onClick={() => handleAddToCartFromModal(selectedProduct)}
-                    className={`w-full h-14 rounded-full text-base font-medium transition-all hover:scale-[1.02] active:scale-[0.98] ${
-                      addedToCart === selectedProduct.id
-                        ? 'bg-green-500 hover:bg-green-600'
-                        : ''
-                    }`}
+                    className={`w-full h-14 rounded-full text-base font-medium transition-all hover:scale-[1.02] active:scale-[0.98] ${addedToCart === selectedProduct.id
+                      ? 'bg-green-500 hover:bg-green-600'
+                      : ''
+                      }`}
                   >
                     {addedToCart === selectedProduct.id ? (
                       <>
@@ -168,7 +166,7 @@ export function ProductGrid({ productos }) {
                       </>
                     )}
                   </Button>
-                  
+
                   <Link href="/carrito">
                     <Button variant="outline" className="w-full h-14 rounded-full text-base font-medium">
                       Ver Carrito

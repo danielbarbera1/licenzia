@@ -8,7 +8,8 @@ import {
   ShieldCheck, 
   User, 
   Loader2,
-  Settings
+  Settings,
+  Store
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -49,12 +50,20 @@ export default function AdminUsuariosPage() {
 
   const handleUpdateRole = async (id, nuevoRol) => {
     try {
-      const { error } = await supabase
+      const { data, error } = await supabase
         .from("usuarios")
         .update({ rol: nuevoRol })
-        .eq("id", id);
+        .eq("id", id)
+        .select();
         
-      if (error) throw error;
+      if (error) {
+        console.error("Error actualizando Supabase:", error);
+        throw error;
+      }
+
+      if (!data || data.length === 0) {
+        throw new Error("No se aplicó el cambio. Esto suele ocurrir por falta de permisos (RLS) en la tabla 'usuarios' para modificar otros registros.");
+      }
       
       // Actualizamos el estado local para reflejar el cambio
       setUsuarios(usuarios.map(u => u.id === id ? { ...u, rol: nuevoRol } : u));
@@ -62,6 +71,8 @@ export default function AdminUsuariosPage() {
       alert(`Rol actualizado a ${nuevoRol.toUpperCase()}`);
     } catch (error) {
       alert("Error al actualizar rol: " + error.message);
+      // Volvemos a cargar para restablecer el selector a su valor real
+      fetchUsuarios();
     }
   };
 
@@ -162,6 +173,11 @@ export default function AdminUsuariosPage() {
                           <ShieldCheck className="w-3 h-3 mr-1" />
                           Admin
                         </span>
+                      ) : u.rol === 'vendedor' ? (
+                        <span className="inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-bold bg-blue-100 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400 uppercase tracking-wider">
+                          <Store className="w-3 h-3 mr-1" />
+                          Vendedor
+                        </span>
                       ) : (
                         <span className="inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-bold bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400 uppercase tracking-wider">
                           <User className="w-3 h-3 mr-1" />
@@ -182,6 +198,7 @@ export default function AdminUsuariosPage() {
                           className="px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-xs font-semibold focus:ring-2 focus:ring-primary/20 outline-none cursor-pointer transition-all hover:bg-slate-100 dark:hover:bg-slate-700 appearance-none text-center"
                         >
                           <option value="usuario">👉 Usuario</option>
+                          <option value="vendedor">👉 Vendedor</option>
                           <option value="admin">👉 Admin</option>
                         </select>
                       </div>

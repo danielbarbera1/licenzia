@@ -15,6 +15,8 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import Navbar from "@/components/navbar";
+import Footer from "@/components/footer";
 
 export default function ConfiguracionPage() {
   const { user, loading: authLoading } = useAuth();
@@ -88,23 +90,33 @@ export default function ConfiguracionPage() {
 
   if (authLoading) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-[60vh] gap-4">
-        <Loader2 className="h-8 w-8 text-primary animate-spin" />
-        <p className="text-slate-500 font-medium">Cargando configuración...</p>
+      <div className="min-h-screen bg-[#fafafa] text-[#111]">
+        <Navbar />
+        <div className="flex flex-col items-center justify-center min-h-[60vh] gap-4">
+          <Loader2 className="h-8 w-8 text-primary animate-spin" />
+          <p className="text-slate-500 font-medium">Cargando configuración...</p>
+        </div>
+        <Footer />
       </div>
     );
   }
 
   if (!user) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-[60vh]">
-        <p className="text-slate-500 font-medium">Debes iniciar sesión para ver esta página.</p>
+      <div className="min-h-screen bg-[#fafafa] text-[#111]">
+        <Navbar />
+        <div className="flex flex-col items-center justify-center min-h-[60vh]">
+          <p className="text-slate-500 font-medium">Debes iniciar sesión para ver esta página.</p>
+        </div>
+        <Footer />
       </div>
     );
   }
 
   return (
-    <div className="max-w-4xl mx-auto space-y-8 pb-10 animate-in fade-in slide-in-from-bottom-4 duration-500 pt-8 px-4">
+    <div className="min-h-screen bg-[#fafafa] text-[#111]">
+      <Navbar />
+      <div className="max-w-4xl mx-auto space-y-8 pb-10 animate-in fade-in slide-in-from-bottom-4 duration-500 pt-28 px-4">
       <div>
         <h1 className="text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white">
           Configuración de Cuenta
@@ -269,6 +281,8 @@ export default function ConfiguracionPage() {
           </Card>
         </div>
       </div>
+      </div>
+      <Footer />
     </div>
   );
 }

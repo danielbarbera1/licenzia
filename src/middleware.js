@@ -29,10 +29,34 @@ export async function middleware(request) {
     }
   );
 
-  // IMPORTANT: Do not add any logic between createServerClient and
-  // supabase.auth.getUser(). A simple mistake could make it very hard to debug
-  // issues with users being randomly logged out.
-  await supabase.auth.getUser();
+  const { data: { user } } = await supabase.auth.getUser();
+
+  if (request.nextUrl.pathname.startsWith('/admin')) {
+    if (!user) {
+      return NextResponse.redirect(new URL('/login', request.url));
+    }
+
+    // Obtener rol desde la tabla usuarios
+    const { data: userData } = await supabase
+      .from('usuarios')
+      .select('rol')
+      .eq('id', user.id)
+      .single();
+      
+    const role = userData?.rol || user.user_metadata?.role;
+
+    if (role !== 'admin' && role !== 'vendedor') {
+      return NextResponse.redirect(new URL('/', request.url));
+    }
+
+    // Restricciones adicionales para vendedor
+    if (role === 'vendedor') {
+      const path = request.nextUrl.pathname;
+      if (path.startsWith('/admin/usuarios') || path.startsWith('/admin/ajustes')) {
+        return NextResponse.redirect(new URL('/admin/dashboard', request.url));
+      }
+    }
+  }
 
   return supabaseResponse;
 }

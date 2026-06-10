@@ -9,7 +9,7 @@ import { useCart } from "@/context/CartContext"
 import { useState, useRef, useEffect } from "react"
 
 export default function Navbar() {
-  const { user, loading, signOut } = useAuth()
+  const { user, role, loading, signOut } = useAuth()
   const { itemCount } = useCart()
   const router = useRouter()
   const [showMenu, setShowMenu] = useState(false)
@@ -109,14 +109,16 @@ export default function Navbar() {
                   Mis Pedidos
                 </Link>
 
-                <Link
-                  href="/admin"
-                  onClick={() => setShowMenu(false)}
-                  className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-600 hover:text-black hover:bg-gray-50 transition-colors"
-                >
-                  <LayoutDashboard className="w-4 h-4" />
-                  Panel de Control
-                </Link>
+                {(role === 'admin' || role === 'vendedor') && (
+                  <Link
+                    href="/admin"
+                    onClick={() => setShowMenu(false)}
+                    className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-600 hover:text-black hover:bg-gray-50 transition-colors"
+                  >
+                    <LayoutDashboard className="w-4 h-4" />
+                    Panel de Control
+                  </Link>
+                )}
 
                 <Link
                   href="/configuracion"

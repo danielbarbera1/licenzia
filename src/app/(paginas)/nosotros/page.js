@@ -13,10 +13,10 @@ export default function NosotrosPage() {
       <section className="relative pt-32 pb-20 px-8 text-center max-w-4xl mx-auto">
         <span className="text-sm font-medium tracking-widest uppercase mb-4 text-gray-500 block">Nuestra Historia</span>
         <h1 className="text-5xl md:text-7xl font-semibold tracking-tighter mb-8 leading-[1.1]">
-          Creando esenciales <br /> que perduran.
+          Licencias <br /> para cada momento de tu vida
         </h1>
         <p className="text-lg text-gray-600 leading-relaxed max-w-2xl mx-auto">
-          Licenzia nació con un objetivo simple: diseñar productos básicos de alta calidad que se adapten a tu día a día. Creemos firmemente que menos es más y que cada detalle importa.
+          En Licenzia, creemos que cada momento empieza con una credencial que te identifique. Nos dedicamos a crear tarjetas, gafetes y identificaciones con diseños modernos y materiales de calidad, pensados para acompañarte en cada paso de tu vida de forma cómoda y segura.
         </p>
       </section>
 
@@ -24,8 +24,8 @@ export default function NosotrosPage() {
       <section className="px-4 md:px-8 max-w-[1400px] mx-auto mb-24">
         <div className="aspect-[21/9] w-full overflow-hidden rounded-2xl bg-gray-100">
           <img 
-            src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=2000&auto=format&fit=crop" 
-            alt="Interior de nuestra tienda de diseño" 
+            src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2000&auto=format&fit=crop" 
+            alt="Escritorio con productos de Licenzia" 
             className="w-full h-full object-cover object-center"
           />
         </div>
@@ -35,7 +35,7 @@ export default function NosotrosPage() {
       <section className="py-24 bg-white px-8">
         <div className="max-w-[1200px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
           <div>
-            <h2 className="text-3xl font-semibold tracking-tight mb-6">Diseño Intencional</h2>
+            <h2 className="text-3xl font-semibold tracking-tight mb-6">Calidad</h2>
             <p className="text-lg text-gray-600 leading-relaxed mb-6">
               Nos enfocamos en el minimalismo moderno. Cada pieza de nuestra colección es el resultado de meses de pruebas, buscando el equilibrio perfecto entre funcionalidad y estética.
             </p>

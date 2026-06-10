@@ -64,6 +64,7 @@ function LoginContent() {
                     options: {
                         data: {
                             full_name: nombre,
+                            role: 'usuario',
                         },
                         emailRedirectTo: `${window.location.origin}/auth/callback`,
                     },
